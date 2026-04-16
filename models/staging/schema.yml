@@ -1,0 +1,36 @@
+version: 2
+
+models:
+  - name: stg_ga_sessions
+    description: "Cleaned and standardized Google Analytics sessions data from the 
+      Google Merchandise Store. One row per session."
+    columns:
+      - name: session_id
+        description: "Unique session identifier"
+        tests:
+          - not_null
+
+      - name: visitor_id
+        description: "Unique visitor identifier"
+        tests:
+          - not_null
+
+      - name: session_date
+        description: "Date of the session"
+        tests:
+          - not_null
+
+      - name: channel
+        description: "Marketing channel that drove the session"
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['Organic Search', 'Paid Search', 'Direct', 
+                        'Referral', 'Social', 'Email', 
+                        'Display', 'Affiliates', '(Other)']
+
+      - name: revenue
+        description: "Transaction revenue in dollars"
+        tests:
+          - not_null
