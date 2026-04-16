@@ -1,0 +1,74 @@
+version: 2
+
+models:
+  - name: mart_attribution
+    description: "Last-touch attribution model giving 100% conversion credit to 
+      the final marketing channel before a transaction. One row per 
+      session date, channel, country and device type."
+    columns:
+      - name: session_date
+        description: "Date of the session"
+        tests:
+          - not_null
+      - name: channel
+        description: "Marketing channel receiving attribution credit"
+        tests:
+          - not_null
+      - name: total_conversions
+        description: "Total number of transactions attributed to this channel"
+        tests:
+      - name: total_revenue
+        description: "Total revenue in dollars attributed to this channel"
+        tests:
+          - not_null
+      - name: conversion_rate
+        description: "Transactions divided by total sessions"
+      - name: avg_order_value
+        description: "Average revenue per transaction"
+
+  - name: mart_mql_funnel
+    description: "Full funnel metrics from session to conversion by channel, 
+      device and country. Used to identify where prospects drop off 
+      and which channels drive highest quality traffic."
+    columns:
+      - name: session_date
+        description: "Date of the session"
+        tests:
+          - not_null
+      - name: channel
+        description: "Marketing channel that drove the session"
+        tests:
+          - not_null
+      - name: total_sessions
+        description: "Total number of sessions"
+        tests:
+          - not_null
+      - name: unique_visitors
+        description: "Count of distinct visitors"
+      - name: pages_per_session
+        description: "Average pageviews per session — proxy for engagement"
+      - name: visitor_conversion_rate
+        description: "Transactions divided by unique visitors"
+      - name: session_conversion_rate
+        description: "Transactions divided by total sessions"
+
+  - name: mart_cac
+    description: "Customer acquisition cost and return on ad spend by channel. 
+      Simulated spend data joined to real conversion metrics from 
+      Google Analytics. Core input for marketing budget optimization."
+    columns:
+      - name: channel
+        description: "Marketing channel"
+        tests:
+          - not_null
+          - unique
+      - name: total_conversions
+        description: "Total transactions driven by this channel"
+      - name: monthly_spend
+        description: "Simulated monthly ad spend for this channel in dollars"
+      - name: cost_per_acquisition
+        description: "Monthly spend divided by total conversions — the CAC metric"
+      - name: roas
+        description: "Return on ad spend — revenue divided by spend"
+      - name: revenue_per_visitor
+        description: "Total revenue divided by unique visitors"
