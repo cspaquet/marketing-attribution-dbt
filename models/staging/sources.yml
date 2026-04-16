@@ -1,0 +1,9 @@
+version: 2
+
+sources:
+  - name: google_analytics
+    database: bigquery-public-data
+    schema: google_analytics_sample
+    tables:
+      - name: ga_sessions_20170801
+        description: "Raw Google Analytics session data — Google Merchandise Store"
